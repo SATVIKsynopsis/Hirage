@@ -4,7 +4,15 @@ version = "0.1.0"
 edition = "2024"
 description = "Terminal Rust compiler explorer built with Ratatui"
 license = "MIT"
-repository = "https://github.com/YOUR_USERNAME/hirage"
+repository = "https://github.com/SATVIKsynopsis/Hirage"
+readme = "README.md"
+
+keywords = ["rust", "compiler", "hir", "mir", "tui"]
+
+categories = [
+    "development-tools",
+    "command-line-utilities",
+]
 
 [dependencies]
 crossterm = "0.29"
