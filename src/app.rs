@@ -29,6 +29,10 @@ pub struct App {
     pub selected_function: usize,
 
     pub focus: Focus,
+
+    pub hir_cache: Option<String>,
+    pub mir_cache: Option<String>,
+    pub llvm_cache: Option<String>,
 }
 
 impl App {
@@ -46,6 +50,10 @@ impl App {
             functions: vec![],
             selected_function: 0,
             focus: Focus::Files,
+
+            hir_cache: None,
+            mir_cache: None,
+            llvm_cache: None,
         }
     }
 
@@ -70,6 +78,7 @@ impl App {
             self.functions = crate::parser::extract_functions(&self.content);
 
             self.selected_function = 0;
+
         }
     }
 

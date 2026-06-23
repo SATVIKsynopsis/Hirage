@@ -50,30 +50,38 @@ pub fn handle_key(app: &mut App, key: KeyEvent) {
         KeyCode::Char('2') => {
             app.current_view = View::Hir;
 
-            match generate_hir() {
-                Ok(hir) => {
-                    if let Some(name) = app.current_function() {
-                        app.content = crate::compiler::hir_filter::extract_function_hir(&hir, name);
+            if app.hir_cache.is_none() {
+                match generate_hir() {
+                    Ok(hir) => app.hir_cache = Some(hir),
+                    Err(e) => {
+                        app.content = e;
+                        return;
                     }
                 }
+            }
 
-                Err(e) => {
-                    app.content = e;
+            if let Some(name) = app.current_function() {
+                if let Some(hir) = &app.hir_cache {
+                    app.content = crate::compiler::hir_filter::extract_function_hir(hir, name);
                 }
             }
         }
         KeyCode::Char('3') => {
             app.current_view = View::Mir;
 
-            match generate_mir() {
-                Ok(mir) => {
-                    if let Some(name) = app.current_function() {
-                        app.content = extract_function_mir(&mir, name);
+            if app.mir_cache.is_none() {
+                match generate_mir() {
+                    Ok(mir) => app.mir_cache = Some(mir),
+                    Err(e) => {
+                        app.content = e;
+                        return;
                     }
                 }
+            }
 
-                Err(e) => {
-                    app.content = e;
+            if let Some(name) = app.current_function() {
+                if let Some(mir) = &app.mir_cache {
+                    app.content = extract_function_mir(mir, name);
                 }
             }
         }
@@ -81,10 +89,17 @@ pub fn handle_key(app: &mut App, key: KeyEvent) {
         KeyCode::Char('4') => {
             app.current_view = View::Llvm;
 
-            match generate_llvm() {
-                Ok(data) => app.content = data,
-                Err(e) => app.content = e,
+            if app.llvm_cache.is_none() {
+                match generate_llvm() {
+                    Ok(llvm) => app.llvm_cache = Some(llvm),
+                    Err(e) => {
+                        app.content = e;
+                        return;
+                    }
+                }
             }
+
+            app.content = app.llvm_cache.clone().unwrap();
         }
 
         KeyCode::Char('5') => {

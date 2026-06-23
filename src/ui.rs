@@ -34,19 +34,15 @@ fn render_files(frame: &mut Frame, app: &App, area: Rect) {
         .collect();
 
     let list = List::new(items)
-    .highlight_symbol("▶ ")
-    .highlight_style(Style::default().reversed())
-    .block(
-        Block::bordered()
-            .title("Functions")
-            .border_style(
-                if app.focus == Focus::Functions {
-                    Style::default().bold()
-                } else {
-                    Style::default()
-                },
-            ),
-    );
+        .highlight_symbol("▶ ")
+        .highlight_style(Style::default().reversed())
+        .block(Block::bordered().title("Functions").border_style(
+            if app.focus == Focus::Functions {
+                Style::default().bold()
+            } else {
+                Style::default()
+            },
+        ));
 
     let mut state = ListState::default();
     state.select(Some(app.selected_file));
@@ -61,19 +57,15 @@ fn render_functions(frame: &mut Frame, app: &App, area: Rect) {
         .map(|f| ListItem::new(f.as_str()))
         .collect();
 
-    let list = List::new(items)
-        .highlight_symbol("▶ ")
-       .block(
-    Block::bordered()
-        .title("Functions")
-        .border_style(
-            if app.focus == Focus::Functions {
+    let list = List::new(items).highlight_symbol("▶ ").block(
+        Block::bordered()
+            .title("Functions")
+            .border_style(if app.focus == Focus::Functions {
                 Style::default().bold()
             } else {
                 Style::default()
-            },
-        ),
-);
+            }),
+    );
 
     let mut state = ListState::default();
 
