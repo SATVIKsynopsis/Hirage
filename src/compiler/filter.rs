@@ -3,7 +3,10 @@ pub fn extract_function_mir(mir: &str, fn_name: &str) -> String {
     let mut capture = false;
 
     for line in mir.lines() {
-        if line.contains(&format!("::{}", fn_name)) {
+        if line.trim_start().starts_with("fn ")
+            && (line.contains(&format!("::{}", fn_name))
+                || line.contains(&format!("fn {}", fn_name)))
+        {
             capture = true;
         }
 
@@ -12,7 +15,7 @@ pub fn extract_function_mir(mir: &str, fn_name: &str) -> String {
             result.push('\n');
 
             if line.trim() == "}" {
-                break;
+                break;FF
             }
         }
     }

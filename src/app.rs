@@ -78,7 +78,6 @@ impl App {
             self.functions = crate::parser::extract_functions(&self.content);
 
             self.selected_function = 0;
-
         }
     }
 
