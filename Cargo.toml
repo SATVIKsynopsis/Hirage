@@ -1,6 +1,6 @@
 [package]
 name = "hirage"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "Terminal Rust compiler explorer built with Ratatui"
 license = "MIT"
