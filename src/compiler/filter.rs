@@ -15,7 +15,7 @@ pub fn extract_function_mir(mir: &str, fn_name: &str) -> String {
             result.push('\n');
 
             if line.trim() == "}" {
-                break;FF
+                break;
             }
         }
     }
